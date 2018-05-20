@@ -1,0 +1,41 @@
+.messages {
+  grid-area: messages;
+  height: calc(100vh - 150px);
+  min-height: 450px;
+  background: white;
+}
+
+.sendMessage{
+  grid-area: sendMessage;
+  height: 100px;
+  background: #9e9c95;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  &__textArea{
+    height: 80%;
+    width: 70%;
+    resize: none;
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.2) ;
+    background: white;
+    color: #333;
+  }
+
+  &__send{
+    height: 45px;
+    width: 130px;
+    background: linear-gradient(to bottom right, #20a760, #58b4a6);
+    color: white;
+    font-size: 15px;
+    font-weight: 100;
+    border: none;
+    border-radius: 100px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+}

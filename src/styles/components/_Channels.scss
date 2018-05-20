@@ -1,0 +1,205 @@
+.sidebar{
+  grid-area: channels;
+  min-width: 150px;
+  background: linear-gradient(to bottom right, #089fb7, #6ab2c4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: scroll;
+
+  &__title {
+    width: calc((100vw / 13) * 2);
+    min-width: 150px;
+    height: fit-content;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    margin: 0 auto 15px auto;
+    border-bottom: 2px solid #089fb7;
+    background: linear-gradient(to bottom right, #0f9fb7, #42a9bf);
+
+
+    &--team{
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: calc((100vw / 13) * 2);
+      min-width: 150px;
+      padding: 0 10px;
+      font-size: 20px;
+      text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    }
+
+    &--user{
+      display: flex;
+      justify-content: center !important;
+      align-items: center;
+      width: calc((100vw / 13) * 2);
+      min-width: 150px;
+      padding: 8px 5px 8px 0 !important;
+    }
+  }
+
+  &__user{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: calc((100vw / 13) * 2);
+    min-width: 150px;
+    padding: 5px 0 5px 15px;
+    cursor: pointer;
+
+    &--status{
+      height: 11px;
+      width: 11px;
+      border: none;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 0, #9feeb3, #00b939);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      margin: 0 10px 0 0 ;
+    }
+
+    &--name{
+      font-size: 15px;
+      font-weight: 100;
+    }
+
+    &:hover{
+      background: rgba(255,255,255,0.2);
+    }
+  }
+
+
+  &__section {
+    min-height: fit-content;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+
+    &--container{
+      width: calc((100vw / 13) * 2);
+      min-width: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    &--title{
+      letter-spacing: 1px;
+      font-size: 18px;
+      font-weight: 500;
+      text-shadow: 0 2px 3px rgba(0,0,0,0.1);
+      padding: 0 8px 0 10px;
+    }
+
+    &--button{
+      background: inherit;
+      border: none;
+    }
+
+    &--icon{
+      height: 14px;
+      width: 14px;
+      cursor: pointer;
+
+      &:hover{
+        border-radius: 50%;
+        background: rgba(255,255,255,0.3);
+      }
+    }
+
+    &--item{
+      width: calc((100vw / 13) * 2);
+      min-width: 150px;
+      font-size: 15px;
+      font-weight: 100;
+      padding: 5px 0 5px 25px;
+      cursor: pointer;
+
+      &:hover{
+        background: rgba(255,255,255,0.2);
+      }
+    }
+  }
+}
+
+
+.modal-container {
+  z-index: 150;
+  position: absolute;
+  top: 0; left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(50,50,50,0.6);
+}
+
+.modal {
+  z-index: 200;
+  margin-left: auto; margin-right: auto;
+
+  &__title{
+    font-size: 40px;
+    padding: 30px;
+    color: #444444;
+  }
+
+  &__form{
+    width: 320px;
+    min-height: 320px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+
+    background: radial-gradient(circle at 25% 25%, #555555, #333333);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: none;
+    padding: 50px;
+
+    &--item{
+      width: 250px;
+      height: 40px;
+      font-size: 18px;
+      font-weight: 100;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+      border: none;
+      padding: 0 10px;
+      margin: 10px;
+    }
+
+    &--error{
+      text-align: center;
+      font-size: 14px;
+      font-weight: 100;
+      color: #ffffff;
+    }
+
+    &--button{
+      width: 280px;
+      height: 50px;
+      margin: 25px;
+      text-align: center;
+      background: linear-gradient(to bottom right, #8eff8e, darkgreen);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      color: white;
+      font-size: 18px;
+      border-radius: 100px;
+      border: none;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+/node_modules
+/public/bundle.js
+/public/bundle.js.map
+/public/style.js
+/public/style.js.map
+webpack.config.js
+postcss.config.js
+.env.development
+.env.production
+.env.test
+/.idea
+canvass-client.iml
+yarn.lock

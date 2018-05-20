@@ -1,0 +1,54 @@
+.dashboard{
+  font-size: 20px;
+  color: #333333;
+}
+
+
+//.tooltip {
+//  position: relative;
+//}
+
+/* Tooltip text */
+.tooltip .tooltip__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  font-size: 15px;
+  width: fit-content;
+  height: 50%;
+  background-color: #555;
+  color: #fff;
+  padding: 20px;
+  border-radius: 100px;
+  white-space: nowrap;
+
+  /* Position the tooltip text */
+  position: absolute;
+  top: 30%;
+  left: 0;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltip__text::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-top-color: #555;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltip__text {
+  transition-delay: 500ms;
+  visibility: visible;
+  opacity: 1;
+}
+
+

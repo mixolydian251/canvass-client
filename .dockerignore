@@ -1,0 +1,10 @@
+/node_modules
+/src
+webpack.config.js
+postcss.config.js
+.env.development
+.env.production
+.env.test
+/.idea
+.dockerignore
+Dockerfile
