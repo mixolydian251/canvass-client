@@ -1,6 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import CanvassCard from './CanvassCard'
 
 const userQuery = gql` 
@@ -25,9 +26,9 @@ query {
   }
 }`;
 
-class Dashboard extends React.Component {
+const Dashboard = () => {
 
-  generateCanvasses = (categories) => {
+  const generateCanvasses = (categories) => {
     const canvasses = [];
     categories.forEach((category) => {
       category.canvasses.forEach((canvass) => {
@@ -35,44 +36,44 @@ class Dashboard extends React.Component {
       })
     });
 
-    return canvasses.map(({category, title, creator, options, comment_ids}) => (
-      <CanvassCard
-        category={ category }
-        title={ title }
-        username={ creator.username }
-        totalVotes={ options.map((option) => option.voter_ids.length).reduce((a,b) => a + b) }
-        totalComments={ comment_ids.length }
-      />
+    return canvasses.map(({ id, category, title, creator, options, comment_ids}) => (
+      <Link to={`/c/${id}`}>
+        <CanvassCard
+          category={ category }
+          title={ title }
+          imageURL="https://picsum.photos/330/200/?random"
+          username={ creator.username }
+          totalVotes={ options.map((option) => option.voter_ids.length).reduce((a,b) => a + b) }
+          totalComments={ comment_ids.length }
+        />
+      </Link>
     ))
   };
 
-  render() {
-    return (
-      <Query query={ userQuery }>
-        {({ loading, error, data }) => {
+  return (
+    <Query query={ userQuery }>
+      {({ loading, error, data }) => {
 
-          if (loading) return null;
-          if (error) return <p>Error!: {error}</p>;
+        if (loading) return null;
+        if (error) return <p>Error!: {error}</p>;
 
-          if(data) {
+        if(data) {
 
-            const { me } = data;
+          const { me } = data;
 
-            return (
-              <div className="dashboard">
-                <div className="dashboard__welcome">{`Welcome to Canvass, ${me.username}`}</div>
-
-                <div className="dashboard__canvasses">
-                  {this.generateCanvasses(me.categories)}
-                </div>
-
+          return (
+            <div className="dashboard">
+              <h2 className="dashboard__title">Trending For You</h2>
+              <div className="dashboard__canvasses">
+                {generateCanvasses(me.categories)}
               </div>
-            )
-          }
-        }}
-      </Query>
-    );
-  }
-}
+
+            </div>
+          )
+        }
+      }}
+    </Query>
+  );
+};
 
 export default Dashboard;
