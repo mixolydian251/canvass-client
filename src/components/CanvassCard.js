@@ -32,17 +32,3 @@ const CanvassCard = (props) => (
 );
 
 export default CanvassCard;
-
-/*
-<div className="canvassCard__footer">
-  <div className="canvassCard__footerElement">
-    <span className="canvassCard__footerElement--number">{props.totalVotes}</span>
-    <img src={vote} className="canvassCard__footerElement--img"/>
-  </div>
-
-  <div className="canvassCard__footerElement">
-
-    <img src={comment} className="canvassCard__footerElement--img"/>
-  </div>
-</div>]
-*/

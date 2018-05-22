@@ -1,0 +1,73 @@
+.canvass{
+  background-color: #f8f8f8;
+  padding: 76px 20px 0;
+  font-size: 15px;
+
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 2fr 3fr;
+  grid-auto-rows: minmax(60px, auto);
+  grid-template-areas:
+          "canvassHeader   canvassChart"
+          "canvassOptions  canvassOptions"
+          "canvassComments canvassComments";
+
+
+  &__header{
+    grid-area: canvassHeader;
+    background-color: #ffffff;
+    min-width: 200px;
+    min-height: 400px;
+
+    &--title{
+
+    }
+
+    &--category{
+
+    }
+
+    &--username{
+
+    }
+
+  }
+
+
+  &__chart{
+    grid-area: canvassChart;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  &__options{
+    grid-area: canvassOptions;
+    background-color: #ffffff;
+    &--option{
+
+    }
+  }
+
+  &__commentSection {
+    grid-area: canvassComments;
+  }
+
+
+  &__comment{
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #ffffff;
+    &--username{
+      font-weight: 500;
+    }
+
+    &--text{
+
+    }
+  }
+
+
+}
+

@@ -1,6 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo';
+import Chart from './Chart';
 
 const canvassQuery = gql` 
 query ($canvassId: String!){
@@ -60,18 +61,39 @@ class Canvass extends React.Component{
 
             return(
               <div className="canvass">
-                <h1>{title}</h1>
-                <p>{creator.username}</p>
-                <p>{category.name}</p><br/>
-                <h2>Options:</h2>
-                <ol>
-                  { options.map((option) => <li key={option.id}>{option.text}</li>) }
-                </ol><br/>
 
-                <h2>Comments:</h2>
-                <ol>
-                  { comments.map((comment) => <li key={comment.id}>{`${comment.creator.username} says: ${comment.text}`}</li>) }
-                </ol>
+                <div className="canvass__header">
+                  <h1 className="canvass__header--title">{title}</h1>
+                  <p className="canvass__header--category">{category.name}</p>
+                  <p className="canvass__header--username">{creator.username}</p>
+                </div>
+
+                <div className="canvass__chart">
+                  <Chart options={options}/>
+                </div>
+
+                <div className="canvass__options">
+                  <h2>Options</h2>
+                  { options.map((option) => <button className="canvass__option" key={option.id}>{option.text}</button>) }
+                </div>
+
+
+
+                <div className="canvass__commentSection">
+                  <h2>Comments</h2>
+
+                  { comments.map((comment) => (
+                    <div className="canvass__comment" key={comment.id}>
+                      <h4 className="canvass__comment--username">
+                        {comment.creator.username}
+                      </h4>
+                      <p className="canvass__comment--text">
+                        {comment.text}
+                      </p>
+                    </div>
+                  )) }
+                </div>
+
               </div>
             )
           }

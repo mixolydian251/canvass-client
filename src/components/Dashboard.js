@@ -30,7 +30,8 @@ const Dashboard = () => {
 
   const generateCanvasses = (canvasses, category) => (
     canvasses.map(({ id, title, creator, options, comment_ids}) => (
-      <Link to={`/c/${id}`} key={id}>
+      <Link to={`/c/${id}`}
+            key={id}>
         <CanvassCard
           category={ category }
           title={ title }
