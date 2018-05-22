@@ -28,16 +28,9 @@ query {
 
 const Dashboard = () => {
 
-  const generateCanvasses = (categories) => {
-    const canvasses = [];
-    categories.forEach((category) => {
-      category.canvasses.forEach((canvass) => {
-        canvasses.push({...canvass, category: category.name})
-      })
-    });
-
-    return canvasses.map(({ id, category, title, creator, options, comment_ids}) => (
-      <Link to={`/c/${id}`}>
+  const generateCanvasses = (canvasses, category) => (
+    canvasses.map(({ id, title, creator, options, comment_ids}) => (
+      <Link to={`/c/${id}`} key={id}>
         <CanvassCard
           category={ category }
           title={ title }
@@ -48,6 +41,19 @@ const Dashboard = () => {
         />
       </Link>
     ))
+  );
+
+  const generateCategories = (categories) => {
+    return categories.map((category) => {
+      return(
+        <div key={category.id}>
+          <h2 className="dashboard__title">{category.name}</h2>
+          <div className="dashboard__canvasses">
+            {generateCanvasses(category.canvasses, category.name)}
+          </div>
+        </div>
+      )
+    });
   };
 
   return (
@@ -59,15 +65,11 @@ const Dashboard = () => {
 
         if(data) {
 
-          const { me } = data;
+          const { categories } = data.me;
 
           return (
             <div className="dashboard">
-              <h2 className="dashboard__title">Trending For You</h2>
-              <div className="dashboard__canvasses">
-                {generateCanvasses(me.categories)}
-              </div>
-
+              {generateCategories(categories)}
             </div>
           )
         }

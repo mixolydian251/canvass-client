@@ -7,26 +7,42 @@ const CanvassCard = (props) => (
 
     <div className="canvassCard__header">
       <span className="canvassCard__header--category">{props.category}</span>
-      <span className="canvassCard__header--creator">{props.username}</span>
+      <span className="canvassCard__header--creator">{`/u/${props.username}`}</span>
     </div>
 
     <img className="canvassCard__img" src={props.imageURL}/>
 
-    <h1 className="canvassCard__title">{props.title}</h1>
-
-    <div className="canvassCard__footer">
-      <div className="canvassCard__footerElement">
-        <span className="canvassCard__footerElement--number">{props.totalVotes}</span>
-        <img src={vote} className="canvassCard__footerElement--img"/>
-      </div>
-
-      <div className="canvassCard__footerElement">
-        <span className="canvassCard__footerElement--number">{props.totalComments}</span>
-        <img src={comment} className="canvassCard__footerElement--img"/>
+    <div className="canvassCard__element canvassCard__element--votes">
+      <div className="canvassCard__elementContainer">
+        <img src={vote} className="canvassCard__elementImg"/>
+        <span className="canvassCard__elementNumber canvassCard__elementNumber--votes">{props.totalVotes}</span>
       </div>
     </div>
+
+    <div className="canvassCard__element canvassCard__element--comments">
+      <div className="canvassCard__elementContainer">
+        <img src={comment} className="canvassCard__elementImg"/>
+        <span className="canvassCard__elementNumber canvassCard__elementNumber--comment">{props.totalComments}</span>
+      </div>
+    </div>
+
+    <h1 className="canvassCard__title">{props.title}</h1>
 
   </div>
 );
 
 export default CanvassCard;
+
+/*
+<div className="canvassCard__footer">
+  <div className="canvassCard__footerElement">
+    <span className="canvassCard__footerElement--number">{props.totalVotes}</span>
+    <img src={vote} className="canvassCard__footerElement--img"/>
+  </div>
+
+  <div className="canvassCard__footerElement">
+
+    <img src={comment} className="canvassCard__footerElement--img"/>
+  </div>
+</div>]
+*/

@@ -1,17 +1,23 @@
 .dashboard {
   min-height: 100vh;
   font-size: 20px;
-  //color: #333333;
+  color: #333333;
   background: #f8f8f8;
-  color: complement(#f8f8f8);
-  padding: 65px 20px;
+  padding: 75px 20px;
 
 
   &__title{
-    font-size: 22px;
-    padding: 10px 3px;
-    font-weight: 400;
-    font-family: "Helvetica Neue", Helvetica, Avenir, sans-serif;
+    width: fit-content;
+    //background: linear-gradient(to bottom right, #48c6ef, #6f86d6);
+    color: #333333;
+    letter-spacing: 1px;
+    //text-shadow: 0 1px 5px #414d81;
+    font-size: 35px;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    border-radius: 0 50px 0 50px;
+    font-weight: 600;
+    font-family: Avenir, sans-serif;
   }
 
   &__canvasses{
@@ -21,49 +27,6 @@
     display: flex;
     align-items: start;
   }
-}
-
-/* Tooltip text */
-.tooltip .tooltip__text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  visibility: hidden;
-  font-size: 15px;
-  width: fit-content;
-  height: 50%;
-  background-color: #555;
-  color: #fff;
-  padding: 20px;
-  border-radius: 100px;
-  white-space: nowrap;
-
-  /* Position the tooltip text */
-  position: absolute;
-  top: 30%;
-  left: 0;
-
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 200ms;
-}
-
-/* Tooltip arrow */
-.tooltip .tooltip__text::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  margin-left: -5px;
-  border: 5px solid transparent;
-  border-top-color: #555;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltip__text {
-  transition-delay: 500ms;
-  visibility: visible;
-  opacity: 1;
 }
 
 
