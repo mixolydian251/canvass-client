@@ -7,7 +7,12 @@ import CreateOption  from './CreateOption';
 
 const createCanvassMutation = gql`
 mutation ($title: String!, $categoryId: String!, $canvassOptions: [String!]!) {
-  createCanvass(title: $title, categoryId: $categoryId, canvassOptions: $canvassOptions)       
+  createCanvass(title: $title, categoryId: $categoryId, canvassOptions: $canvassOptions){
+    ok
+    canvass{
+      id
+    }
+  }       
 }`;
 
 const allCategoriesQuery = gql`
@@ -19,7 +24,6 @@ query {
 }`;
 
 class CreateCanvass extends React.Component {
-
   state = {
     title: '',
     categoryId: '',
@@ -58,8 +62,6 @@ class CreateCanvass extends React.Component {
   onCreateCanvass = async (e, createCanvass) => {
     e.preventDefault();
 
-    console.log("hitting submit!");
-    console.log(createCanvass);
     const { title, categoryId, options } = this.state;
 
     if (!title || !categoryId || !options){
@@ -67,19 +69,25 @@ class CreateCanvass extends React.Component {
     }
 
     else {
+      const canvassOptions = options.map((option) => option.text)
+        .filter((option) => option.text !== "");
 
-      const response = await createCanvass({
-        variables: {
-          title,
-          categoryId,
-          canvassOptions: options.map((option) => option.text)
+      if (canvassOptions.length){
+        const response = await createCanvass({
+          variables: {
+            title,
+            categoryId,
+            canvassOptions
+          }
+        });
+
+        const { ok, canvass } = response.data.createCanvass;
+
+        if (ok) {
+          this.props.history.push(`/c/${canvass.id}`);
         }
-      });
-
-      const { ok, canvass } = response.data.createCanvass;
-
-      if (ok) {
-        this.props.history.push(`/c/${canvass.id}`);
+      } else {
+        console.log("Nope")
       }
     }
   };
@@ -87,18 +95,17 @@ class CreateCanvass extends React.Component {
   render(){
     return(
 
-      <Query query={allCategoriesQuery}>
-        {({ loading, error, data }) => {
+      <Mutation mutation={createCanvassMutation}>
+        {(createCanvass, { data }) => (
+          <Query query={allCategoriesQuery}>
+            {({ loading, error, data }) => {
 
-          if (loading) return null;
-          if (error) return <p>Error!: {error.toString()}</p>;
+              if (loading) return null;
+              if (error) return <p>Error!: {error.toString()}</p>;
 
-          const { allCategories } = data;
+              const { allCategories } = data;
 
-          return (
-            <Mutation mutation={createCanvassMutation}>
-              {(createCanvass, { data }) => (
-
+              return (
                 <div className="createCanvass">
                   <h1 className="createCanvass__title">Create a Canvass</h1>
                   <div className="createCanvass__form">
@@ -138,7 +145,7 @@ class CreateCanvass extends React.Component {
                     <button onClick={this.addOption}>Add Option</button>
 
                     <button className="createCanvass__formButton createCanvass__formButton--create"
-                            onClick={ (e) => this.onCreateCanvass( e, createCanvass )}
+                            onClick={(e) => { this.onCreateCanvass(e, createCanvass) }}
                     >
                       Create Canvass
                     </button>
@@ -157,12 +164,11 @@ class CreateCanvass extends React.Component {
 
                   </div>
                 </div>
-
-              )}
-            </Mutation>
-            )
-        }}
-      </Query>
+              )
+            }}
+          </Query>
+        )}
+      </Mutation>
     )
   }
 }

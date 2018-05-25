@@ -38,13 +38,16 @@ const Header = () => (
                 <button className="header__search--button">Search</button>
               </div>
 
+              <Link to="/create">
+                <button>Create Canvass</button>
+              </Link>
+
               <div className="header__user">
                 <span className="header__user--name">{`/u/${username ? username : "sign in"}`}</span>
               </div>
 
             </div>
           </div>
-
         )
       }
     }}
