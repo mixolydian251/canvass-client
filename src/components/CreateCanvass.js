@@ -1,7 +1,9 @@
 import React from 'react';
 import gql from 'graphql-tag'
+import uuid from 'uuid';
 import { Link } from 'react-router-dom';
 import { Mutation, Query } from 'react-apollo';
+import CreateOption  from './CreateOption';
 
 const createCanvassMutation = gql`
 mutation ($title: String!, $categoryId: String!, $canvassOptions: [String!]!) {
@@ -21,9 +23,32 @@ class CreateCanvass extends React.Component {
   state = {
     title: '',
     categoryId: '',
-    canvassOptions: [],
+    options: [],
     submitError: false
   };
+
+  removeOption = (id) => {
+    this.setState((prevState) => ({
+      options: prevState.options.filter((option) => option.id !== id)
+    }))
+  };
+
+  addOption = () => {
+    this.setState((prevState) => ({
+      options: prevState.options.concat({ id: uuid(), text: '', voter_ids: []})
+    }))
+  };
+
+  onOptionChange = (id, text) => {
+    this.setState((prevState) => ({
+      options: prevState.options.map((option) => {
+        if(option.id === id){
+          return{ id, text};
+        } else { return option }
+      })
+    }))
+  };
+
 
   onChange = e => {
     const { name, value } = e.target;
@@ -32,18 +57,22 @@ class CreateCanvass extends React.Component {
 
   onCreateCanvass = async (e, createCanvass) => {
     e.preventDefault();
-    const { title, categoryId, canvassOptions } = this.state;
 
-    if (!title || !categoryId || !canvassOptions){
+    console.log("hitting submit!");
+    console.log(createCanvass);
+    const { title, categoryId, options } = this.state;
+
+    if (!title || !categoryId || !options){
       this.setState({ submitError: true })
     }
 
     else {
+
       const response = await createCanvass({
         variables: {
           title,
           categoryId,
-          canvassOptions
+          canvassOptions: options.map((option) => option.text)
         }
       });
 
@@ -72,8 +101,7 @@ class CreateCanvass extends React.Component {
 
                 <div className="createCanvass">
                   <h1 className="createCanvass__title">Create a Canvass</h1>
-                  <form className="createCanvass__form"
-                        onSubmit={ (e) => { this.onCreateCanvass(e, createCanvass) }}>
+                  <div className="createCanvass__form">
 
                     <input name="title"
                            placeholder="Title"
@@ -97,9 +125,20 @@ class CreateCanvass extends React.Component {
                         </option>))}
                     </select>
 
+                    <div className="createCanvass__options">
+                      { this.state.options.map((option) => (
+                        <CreateOption
+                          id={option.id}
+                          key={option.id}
+                          removeOption={this.removeOption}
+                          onChange={this.onOptionChange}/>
+                      ))}
+                    </div>
+
+                    <button onClick={this.addOption}>Add Option</button>
 
                     <button className="createCanvass__formButton createCanvass__formButton--create"
-                            type="submit"
+                            onClick={ (e) => this.onCreateCanvass( e, createCanvass )}
                     >
                       Create Canvass
                     </button>
@@ -116,7 +155,7 @@ class CreateCanvass extends React.Component {
                       this.state.submitError &&
                       <p className="login__form--error">Please fill out all fields</p> }
 
-                  </form>
+                  </div>
                 </div>
 
               )}
