@@ -6,6 +6,7 @@ import Canvass from '../components/Canvass';
 import Dashboard from "../components/Dashboard";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import CreateCanvass from "../components/CreateCanvass"
 import PageNotFound from "../components/PageNotFound";
 
 import PrivateRoute from "./PrivateRoute";
@@ -18,6 +19,7 @@ const AppRouter = () => (
       <Header/>
       <Switch>
         <PrivateRoute path="/" exact={true} component={Dashboard} />
+        <PrivateRoute path="/create" component={CreateCanvass} />
         <Route path="/c/:canvassId?/" component={Canvass} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

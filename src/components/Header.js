@@ -17,7 +17,7 @@ const Header = () => (
     {({ loading, error, data }) => {
 
       if (loading) return null;
-      if (error) return <p>Error!: {error}</p>;
+      if (error) return <p>Error!: </p>;
 
       if(data) {
 
@@ -39,7 +39,7 @@ const Header = () => (
               </div>
 
               <div className="header__user">
-                <span className="header__user--name">{`/u/${username}`}</span>
+                <span className="header__user--name">{`/u/${username ? username : "sign in"}`}</span>
               </div>
 
             </div>

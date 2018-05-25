@@ -36,7 +36,7 @@ const Dashboard = () => {
           category={ category }
           title={ title }
           imageURL="https://picsum.photos/330/200/?random"
-          username={ creator.username }
+          username={ creator.username ? creator.username : "*removed*" }
           totalVotes={ options.map((option) => option.voter_ids.length).reduce((a,b) => a + b) }
           totalComments={ comment_ids.length }
         />
@@ -62,7 +62,7 @@ const Dashboard = () => {
       {({ loading, error, data }) => {
 
         if (loading) return null;
-        if (error) return <p>Error!: {error}</p>;
+        if (error) return <p>Error!: {error.toString()}</p>;
 
         if(data) {
 

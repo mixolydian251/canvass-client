@@ -20,7 +20,16 @@
     min-height: 400px;
 
     &--title{
+      font-family: Verdana, Avenir, Helvetica, sans-serif;
+      font-weight: 800;
+      background: #fff04f;
+      text-align: center;
 
+      &::selection {
+        color: #666;
+        background: white;
+        opacity: 1;
+      }
     }
 
     &--category{
