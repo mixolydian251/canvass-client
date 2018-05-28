@@ -1,15 +1,28 @@
 import React from 'react';
+import gql from 'graphql-tag'
+import { Query } from 'react-apollo';
 import { Doughnut } from 'react-chartjs-2';
 
-const Chart = (props) => {
-  const generateDataObject = () => {
-    const { options } = props;
+
+const getOptions = gql`
+query ($canvassId: String!) {
+  getOptionsByCanvass(canvassId: $canvassId){
+    id
+    text
+    voter_ids 
+  }      
+}`;
+
+class Chart extends React.Component {
+
+  generateDataObject = (options) => {
     const data = [];
     const labels = [];
     options.forEach((option) => {
-      data.push(option.voters.length);
+      data.push(option.voter_ids.length);
       labels.push(option.text)
     });
+
     return {
       datasets: [{
         data: data,
@@ -24,29 +37,38 @@ const Chart = (props) => {
     }
   };
 
-  // const options = {
-  //   elements: {
-  //     point: {
-  //       radius: 5,
-  //       borderWidth: 1,
-  //       pointStyle: 'circle',
-  //       hitRadius: 5,
-  //       hoverRadius: 5
-  //     }
-  //   },
-  //   legend: {
-  //     labels: {
-  //       fontColor: "#222222",
-  //       fontSize: 16
-  //     }
-  //   },
-  //   maintainAspectRatio: true,
-  // };
+  componentDidUpdate () {
+    if (this.props.refetch){
+      setTimeout(() => {
+        this.refetchData();
+        this.props.reset();
+      }, 200)
+    }
+  }
 
-  return (
-    <Doughnut style={{ height: "90%"}} data={generateDataObject()}/>
-  )
-};
+  render () {
+    return (
+      <Query  query={ getOptions }
+              variables={{ canvassId: this.props.canvassId }}>
+
+        {({ loading, error, data, refetch }) => {
+
+          if (loading) return null;
+          if (error) return error.toString();
+          if (data) {
+
+            this.refetchData = refetch;
+
+            const options = data.getOptionsByCanvass;
+
+            return (
+              <Doughnut style={{ height: "90%" }} data={this.generateDataObject(options)}/>
+            )
+          }}}
+      </Query>
+    )
+  }
+}
 
 export default Chart
 

@@ -2,6 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag'
 import { Query, Mutation } from 'react-apollo';
 import Option from './Option';
+import CommentSection from './CommentSection';
 import Chart from './Chart';
 
 const canvassQuery = gql` 
@@ -18,23 +19,6 @@ query ($canvassId: String!){
     options {
       id
       text
-      voters {
-        id
-      }
-    }
-    comments {
-      id
-      text
-      creator{
-        username
-      }
-      replies{
-        id
-      	text
-      	creator{
-        	username
-      	}
-      }
     }
   }
 }`;
@@ -43,27 +27,34 @@ const voteMutation = gql`
 mutation ($canvassId: String!, $optionId: String!) {
   vote(canvassId: $canvassId, optionId: $optionId){
     ok
-    options {
-      id
-      text
-      voter_ids
-    }
   }      
 }`;
 
 class Canvass extends React.Component{
 
+  state = {
+    refetch: false,
+  };
+
+  refetchVotes = () => {
+    this.setState({ refetch: true })
+  };
+
+  resetState = () => {
+    this.setState({ refetch: false })
+  };
+
   render() {
 
     return (
     <Mutation mutation={voteMutation}>
-      {(vote, { data }) => {
+      {(vote) => {
 
         return(
         <Query  query={ canvassQuery }
                 variables={{canvassId: this.props.match.params.canvassId}}>
 
-          {({ loading, error, data, refetch }) => {
+          {({ loading, error, data }) => {
 
             if (loading) return null;
             if (error) return error;
@@ -74,7 +65,6 @@ class Canvass extends React.Component{
                 category,
                 creator,
                 options,
-                comments
               } = data.getCanvassById;
 
               return(
@@ -87,7 +77,9 @@ class Canvass extends React.Component{
                   </div>
 
                   <div className="canvass__chart">
-                    <Chart options={options}/>
+                    <Chart canvassId={this.props.match.params.canvassId}
+                           refetch={this.state.refetch}
+                           reset={this.resetState}/>
                   </div>
 
                   <div className="canvass__options">
@@ -100,30 +92,19 @@ class Canvass extends React.Component{
                           optionId={option.id}
                           canvassId={this.props.match.params.canvassId}
                           vote={vote}
-                          refetch={refetch}/>
+                          refetch={this.refetchVotes}/>
                       ))
                     }
-                    </div>
-
-                  <div className="canvass__commentSection">
-                    <h2>Comments</h2>
-
-                    { comments.map((comment) => (
-                      <div className="canvass__comment" key={comment.id}>
-                        <h4 className="canvass__comment--username">
-                          {comment.creator.username}
-                        </h4>
-                        <p className="canvass__comment--text">
-                          {comment.text}
-                        </p>
-                      </div>
-                    )) }
                   </div>
+
+                  <CommentSection className="canvass__commentSection"
+                                  canvassId={this.props.match.params.canvassId}/>
 
                 </div>
               )
             }
           }}
+
         </Query>
       )}}
     </Mutation>
