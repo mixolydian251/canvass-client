@@ -1,0 +1,28 @@
+.comment{
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  &__username{
+    font-weight: 500;
+  }
+
+  &__created{
+    color: #555555;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+
+  &__text{
+
+  }
+}
+
+.commentHeader{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 0;
+}

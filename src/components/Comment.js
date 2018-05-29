@@ -4,12 +4,12 @@ import moment from 'moment';
 const Comment = ({ id, creator, text, created_at }) => {
 
   return (
-    <div className="canvass__comment" key={id}>
-      <div className="canvass__commentHeader">
-        <h4 className="canvass__comment--username">{creator.username}</h4>
-        <p>{moment(created_at).fromNow()}</p>
+    <div className="comment" key={id}>
+      <div className="commentHeader">
+        <h4 className="comment__username">{creator.username}</h4>
+        <p className="comment__created">{moment(created_at).fromNow()}</p>
       </div>
-      <p className="canvass__comment--text">
+      <p className="comment__text">
         {text}
       </p>
     </div>

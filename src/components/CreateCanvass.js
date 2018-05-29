@@ -53,7 +53,6 @@ class CreateCanvass extends React.Component {
     }))
   };
 
-
   onChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -84,13 +83,17 @@ class CreateCanvass extends React.Component {
         const { ok, canvass } = response.data.createCanvass;
 
         if (ok) {
-          this.props.history.push(`/c/${canvass.id}`);
+          this.props.history.push(`/${canvass.id}`);
         }
       } else {
         console.log("Nope")
       }
     }
   };
+
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
 
   render(){
     return(

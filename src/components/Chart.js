@@ -30,19 +30,23 @@ class Chart extends React.Component {
           "salmon","darkgray", "aqua",  "pink", "coral",
           "blue", "purple", "magenta", "red", "green",
         ],
-        borderColor: "#f8f8f8",
-        borderWidth: 10,
+        borderColor: "#ffffff",
+        borderWidth: 7,
       }],
       labels: labels
     }
   };
 
+  chartOptions = {
+    responsive: true,
+    responsiveAnimationDuration: 0,
+    maintainAspectRatio: false,
+  };
+
   componentDidUpdate () {
     if (this.props.refetch){
-      setTimeout(() => {
-        this.refetchData();
-        this.props.reset();
-      }, 200)
+      this.refetchData();
+      this.props.reset();
     }
   }
 
@@ -62,7 +66,7 @@ class Chart extends React.Component {
             const options = data.getOptionsByCanvass;
 
             return (
-              <Doughnut style={{ height: "90%" }} data={this.generateDataObject(options)}/>
+              <Doughnut data={this.generateDataObject(options)} options={this.chartOptions}/>
             )
           }}}
       </Query>

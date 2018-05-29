@@ -12,6 +12,7 @@ query ($canvassId: String!){
       id
       username
     }
+    created_at
     replies{
       id
     }
@@ -34,7 +35,6 @@ mutation ($text: String!, $canvassId: String!){
 class CommentSection extends React.Component {
 
   state = {
-    comments: undefined,
     commentText: '',
     createComment: false
   };
@@ -46,10 +46,6 @@ class CommentSection extends React.Component {
   onChange = e => {
     const { name, value } = e.target;
     this.setState({[name]: value});
-  };
-
-  loadComments = (comments) => {
-    this.setState({ comments })
   };
 
   createComment = async (createComment) => {
@@ -81,9 +77,7 @@ class CommentSection extends React.Component {
                   this.refetchData = refetch;
 
                   return (
-                    <div>
-
-                      {() => { this.loadComments(comments) }}
+                    <div className="canvass__commentSection">
 
                       <h2>Comments</h2>
                       <button onClick={this.toggleCreateComment}> Add Comment </button>

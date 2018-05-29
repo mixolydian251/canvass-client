@@ -44,6 +44,10 @@ class Canvass extends React.Component{
     this.setState({ refetch: false })
   };
 
+  componentDidMount(){
+    window.scrollTo(0, 0);
+  }
+
   render() {
 
     return (
@@ -82,23 +86,25 @@ class Canvass extends React.Component{
                            reset={this.resetState}/>
                   </div>
 
-                  <div className="canvass__options">
+
+                  <div className="canvass__optionsContainer">
                     <h2>Options</h2>
-                    {
-                      options.map((option) => (
-                        <Option
-                          key={option.id}
-                          text={option.text}
-                          optionId={option.id}
-                          canvassId={this.props.match.params.canvassId}
-                          vote={vote}
-                          refetch={this.refetchVotes}/>
-                      ))
-                    }
+                    <div className="canvass__options">
+                      {
+                        options.map((option) => (
+                          <Option
+                            key={option.id}
+                            text={option.text}
+                            optionId={option.id}
+                            canvassId={this.props.match.params.canvassId}
+                            vote={vote}
+                            refetch={this.refetchVotes}/>
+                        ))
+                      }
+                    </div>
                   </div>
 
-                  <CommentSection className="canvass__commentSection"
-                                  canvassId={this.props.match.params.canvassId}/>
+                  <CommentSection canvassId={this.props.match.params.canvassId}/>
 
                 </div>
               )
